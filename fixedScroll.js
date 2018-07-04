@@ -15,7 +15,7 @@
             hookOffset: 0, //hook区域顶部偏移量
             offset: 0, //固定元素顶部偏移量
             stickEndEl: '', //固定结束位置的元素
-            callback: '',
+            callback: ''
         };
         $.extend(this, this.defaults, opts);
         this.flag = true;
@@ -48,7 +48,7 @@
             this.flag = false;
         },
         // 固定
-        stickHandle() {
+        stickHandle: function () {
             if (this.winEl.scrollTop() > this.stickTop - this.offset) {
                 if (this.winEl.scrollTop() < this.stickBottom - this.fixedElH - this.offset) {
                     this.fixedEl.css({
@@ -65,7 +65,7 @@
                         "top": "auto",
                         "left": "auto",
                         "position": "static",
-                        "transform": "translateY(" + this.distance + "px)",
+                        "transform": "translateY(" + this.distance + "px)"
                     });
                     typeof this.callback == 'function' && this.callback(0);
                 }
@@ -79,9 +79,9 @@
         },
 
         // 动态计算高度
-        resizeHeight(newTop) {
+        resizeHeight: function (hasNewTop) {
             if (this.fixedEl.length > 0) {
-                this.stickTop = newTop ? this.fixedEl.offset().top : this.init_stickTop;
+                this.stickTop = hasNewTop ? this.fixedEl.offset().top : this.init_stickTop;
             }
             if (this.stickEndEl.length > 0) {
                 this.stickBottom = this.stickEndEl.offset().top;
@@ -91,7 +91,7 @@
         },
 
         // 计算滚动区
-        calcArea() {
+        calcArea: function () {
             if (this.hookEls.length <= 0) return;
             let areas = [];
             this.hookEls.each(function (i, ele) {
@@ -103,7 +103,7 @@
         },
 
         // 区域判断
-        hookScroll() {
+        hookScroll: function () {
             var t = this.winEl.scrollTop();
             for (var i in this.hookArea) {
                 if ((t > this.hookArea[i][0] - this.hookOffset) && t < this.hookArea[i][1]) {
@@ -115,7 +115,7 @@
         },
 
         // nav状态
-        navStatus(i) {
+        navStatus: function (i) {
             if (i || +i === 0) {
                 this.navEls.eq(i).addClass('active').siblings().removeClass('active');
             } else {
@@ -124,13 +124,13 @@
         },
 
         // 滚动到指定位置
-        refresh(i) {
+        refresh: function (i) {
             let top = this.hookArea[i][0] - this.hookOffset;
             this.calcArea();
-            this.scrollTop(top, 120)
+            this.scrollTop(top, 120);
         },
 
-        scrollTop(scrollTo, time) {
+        scrollTop: function (scrollTo, time) {
             var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
             var scrollFrom = parseInt(scrollTop),
                 i = 0,
@@ -148,7 +148,7 @@
             }, step)
         },
 
-        events() {
+        events: function () {
             let _this = this;
             // 切换nav
             if (_this.navEls.length > 0) {
@@ -157,7 +157,7 @@
                     _this.isClickSwitch = true;
                     _this.refresh(i);
                     _this.navStatus(i);
-                    setTimeout(() => {
+                    setTimeout(function () {
                         _this.isClickSwitch = false;
                     }, 300);
                 })
