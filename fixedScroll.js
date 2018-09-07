@@ -8,7 +8,7 @@
  */
 ;
 (function () {
-    let fixedScroll = function ($fixedEl, opts) {
+    var fixedScroll = function ($fixedEl, opts) {
         this.defaults = {
             navEls: '', //nav (注意: navEls和hookEls两个参数必须成对出现)
             hookEls: '', //nav要滚动到的对应元素
@@ -93,7 +93,7 @@
         // 计算滚动区
         calcArea: function () {
             if (this.hookEls.length <= 0) return;
-            let areas = [];
+            var areas = [];
             this.hookEls.each(function (i, ele) {
                 var start = $(this).offset().top;
                 var end = start + $(this).height();
@@ -125,8 +125,8 @@
 
         // 滚动到指定位置
         refresh: function (i) {
-            let top = this.hookArea[i][0] - this.hookOffset;
             this.calcArea();
+            var top = this.hookArea[i][0] - this.hookOffset;
             this.scrollTop(top, 120);
         },
 
@@ -139,7 +139,7 @@
             time /= step;
             var interval = setInterval(function () {
                 i++;
-                let top = (scrollTo - scrollFrom) / time * i + scrollFrom;
+                var top = (scrollTo - scrollFrom) / time * i + scrollFrom;
                 document.body.scrollTop = top;
                 document.documentElement.scrollTop = top;
                 if (i >= time) {
@@ -149,11 +149,11 @@
         },
 
         events: function () {
-            let _this = this;
+            var _this = this;
             // 切换nav
             if (_this.navEls.length > 0) {
                 this.navEls.on('click', function () {
-                    let i = $(this).index();
+                    var i = $(this).index();
                     _this.isClickSwitch = true;
                     _this.refresh(i);
                     _this.navStatus(i);
@@ -171,7 +171,7 @@
     }
 
     $.fn.fixedScroll = function (opts) {
-        let drag = new fixedScroll(this, opts);
+        var drag = new fixedScroll(this, opts);
         drag.init();
         return drag;
     }
