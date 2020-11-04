@@ -1,5 +1,7 @@
 ![fixedScroll](./img.jpg)
 
+## (项目已停止维护，推荐使用HC-Sticky)
+
 基本满足常见的网页fixed需求。
 
 ### 功能场景 ###
